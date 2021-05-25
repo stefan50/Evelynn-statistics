@@ -11,11 +11,15 @@ boxplot(data$killRatio,
 mtext(paste("Outliers: ", paste(outliersKillRatio, collapse = ", ")))
 
 summary(data$killRatio)
-mad(data$killRatio)
-var(data$killRatio)
-IQR(data$killRatio)
+cat("MAD = ", mad(data$killRatio), "\n")
+cat("Var(x) = ", var(data$killRatio), "\n")
+cat("IQR = ", IQR(data$killRatio), "\n")
 
-# shapiro.test(data$killRatio)
+if(shapiro.test(data$killRatio)$p.value >= 0.05) {
+    print("Kill ratio is close to a normal distribution")
+} else {
+    print("Kill ratio is not close to a normal distribution")
+}
 
 outliersDeathRatio <- boxplot.stats(data$deathRatio)$out #find outliers using IQR
 
@@ -28,7 +32,12 @@ boxplot(data$deathRatio,
 )
 mtext(paste("Outliers: ", paste(outliersDeathRatio, collapse = ", ")))
 
-summary(data$deathRatio)
-mad(data$deathRatio)
-var(data$deathRatio)
-IQR(data$deathRatio)
+cat("MAD = ", mad(data$deathRatio), "\n")
+cat("Var(x) = ", var(data$deathRatio), "\n")
+cat("IQR = ", IQR(data$deathRatio), "\n")
+
+if(shapiro.test(data$deathRatio)$p.value >= 0.05) {
+    print("Death ratio is close to a normal distribution")
+} else {
+    print("Death ratio is not close to a normal distribution")
+}
