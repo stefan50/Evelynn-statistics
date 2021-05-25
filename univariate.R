@@ -51,3 +51,9 @@ round(prop.table(tableBlueTeam) * 100, 2)
 
 tableWin <- table(data$win)
 round(prop.table(tableWin) * 100, 2)
+
+pdf(file = "./Kill.pdf", width = 8, height = 8)
+plot(density(data$killRatio), lwd = 2, xlab = "killRatio", ylab = "pdf")
+
+pdf(file = "./Death.pdf", width = 8, height = 8)
+plot(density(data$deathRatio), lwd = 2, xlab = "deathRatio", ylab = "density")
