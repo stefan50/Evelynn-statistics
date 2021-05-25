@@ -37,13 +37,13 @@ prop.table(blueTeamWinRate, margin = 2)
 correl_index <- abs(cor(data$killRatio, data$deathRatio)) 
 
 if(correl_index >= 0.9 && correl_index <= 1.0) {
-    print("Kill ratio and data ratio are extremely correlated.")
+    print("Kill ratio and death ratio are extremely correlated.")
 } else if(correl_index >= 0.75 && correl_index < 0.9) {
-    print("Kill ratio and data ratio are quite correlated.")
+    print("Kill ratio and death ratio are quite correlated.")
 } else if(correl_index >= 0.5 && correl_index < 0.75) {
-    print("Kill ratio and data ratio are correlated.")
+    print("Kill ratio and death ratio are correlated.")
 } else {
-    print("Kill ratio and data ratio are vaguely correlated or not correlated at all.")
+    print("Kill ratio and death ratio are vaguely correlated or not correlated at all.")
 }
 
 test <- lm(data$killRatio ~ data$deathRatio)
