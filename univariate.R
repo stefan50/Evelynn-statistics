@@ -32,6 +32,7 @@ boxplot(data$deathRatio,
 )
 mtext(paste("Outliers: ", paste(outliersDeathRatio, collapse = ", ")))
 
+summary(data$deathRatio)
 cat("MAD = ", mad(data$deathRatio), "\n")
 cat("Var(x) = ", var(data$deathRatio), "\n")
 cat("IQR = ", IQR(data$deathRatio), "\n")
