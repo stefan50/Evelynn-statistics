@@ -32,3 +32,27 @@ prop.table(blueTeamWinRate, margin = 1)
 
 # Blue team based on win rate
 prop.table(blueTeamWinRate, margin = 2)
+
+# Correlation analysis between kill ratio and death ratio
+correl_index <- abs(cor(data$killRatio, data$deathRatio)) 
+
+if(correl_index >= 0.9 && correl_index <= 1.0) {
+    print("Kill ratio and data ratio are extremely correlated.")
+} else if(correl_index >= 0.75 && correl_index < 0.9) {
+    print("Kill ratio and data ratio are quite correlated.")
+} else if(correl_index >= 0.5 && correl_index < 0.75) {
+    print("Kill ratio and data ratio are correlated.")
+} else {
+    print("Kill ratio and data ratio are vaguely correlated or not correlated at all.")
+}
+
+test <- lm(data$killRatio ~ data$deathRatio)
+
+# Source : https://stackoverflow.com/questions/5587676/pull-out-p-values-and-r-squared-from-a-linear-regression
+fStatLinearReg <- summary(test)$fstatistic
+fDist <- pf(fStatLinearReg[1],fStatLinearReg[2],fStatLinearReg[3],lower.tail=F)
+attributes(fDist) <- NULL
+
+if(fDist > 0.05) {
+    print("All parameters are statistically irrelevant")
+}
