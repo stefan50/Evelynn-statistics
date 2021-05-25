@@ -42,3 +42,12 @@ if(shapiro.test(data$deathRatio)$p.value >= 0.05) {
 } else {
     print("Death ratio is not close to a normal distribution")
 }
+
+tableTier <- table(data$tier)
+round(prop.table(tableTier) * 100, 2)
+
+tableBlueTeam <- table(data$blue_team)
+round(prop.table(tableBlueTeam) * 100, 2)
+
+tableWin <- table(data$win)
+round(prop.table(tableWin) * 100, 2)
