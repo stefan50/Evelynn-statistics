@@ -56,3 +56,21 @@ attributes(fDist) <- NULL
 if(fDist > 0.05) {
     print("All parameters are statistically irrelevant")
 }
+
+if(wilcox.test(data$killRatio ~ data$win)$p.value < 0.05) {
+    print("Whether we win or not influences kill ratio")
+} else {
+    print("Whether we win or not does not influence kill ratio")
+}
+
+if(wilcox.test(data$killRatio ~ data$blue_team)$p.value < 0.05) {
+    print("Whether we are in blue team or not influences kill ratio")
+} else {
+    print("Whether we are in blue team or not does not influence kill ratio")
+}
+
+if(kruskal.test(data$killRatio ~ data$tier)$p.value < 0.05) {
+    print("Tier influences kill ratio")
+} else {
+    print("Tier does not influence kill ratio")
+}
