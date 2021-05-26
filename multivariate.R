@@ -57,20 +57,26 @@ if(fDist > 0.05) {
     print("All parameters are statistically irrelevant")
 }
 
-if(wilcox.test(data$killRatio ~ data$win)$p.value < 0.05) {
-    print("Whether we win or not influences kill ratio")
-} else {
-    print("Whether we win or not does not influence kill ratio")
+tests <- function(vector, name) {
+    if(wilcox.test(vector ~ data$win)$p.value < 0.05) {
+        cat("Whether we win or not influences", name, "\n")
+    } else {
+        cat("Whether we win or not does not influence", name, "\n")
+    }
+
+    if(wilcox.test(vector ~ data$blue_team)$p.value < 0.05) {
+        cat("Whether we are in blue team or not influences", name, "\n")
+    } else {
+        cat("Whether we are in blue team or not does not influence", name, "\n")
+    }
+
+    if(kruskal.test(vector ~ data$tier)$p.value < 0.05) {
+        cat("Tier influences", name, "\n")
+    } else {
+        cat("Tier does not influence", name, "\n")
+    }
 }
 
-if(wilcox.test(data$killRatio ~ data$blue_team)$p.value < 0.05) {
-    print("Whether we are in blue team or not influences kill ratio")
-} else {
-    print("Whether we are in blue team or not does not influence kill ratio")
-}
 
-if(kruskal.test(data$killRatio ~ data$tier)$p.value < 0.05) {
-    print("Tier influences kill ratio")
-} else {
-    print("Tier does not influence kill ratio")
-}
+tests(data$killRatio, "kill ratio")
+tests(data$deathRatio, "death ratio")
