@@ -34,7 +34,8 @@ prop.table(blueTeamWinRate, margin = 1)
 prop.table(blueTeamWinRate, margin = 2)
 
 # Correlation analysis between kill ratio and death ratio
-correl_index <- abs(cor(data$killRatio, data$deathRatio)) 
+# Data is not normal. Therefore, using Spearman's correlation index
+correl_index <- abs(cor(data$killRatio, data$deathRatio, method = "spearman")) 
 
 if(correl_index >= 0.9 && correl_index <= 1.0) {
     print("Kill ratio and death ratio are extremely correlated.")
@@ -77,6 +78,22 @@ tests <- function(vector, name) {
     }
 }
 
+tests2 <- function(vector, name) {
+    if(kruskal.test(vector ~ data$killRatio)$p.value < 0.05) {
+        cat("Kill ratio influences", name, "\n")
+    } else {
+        cat("Kill ratio does not influence", name, "\n")
+    }
+
+    if(kruskal.test(vector ~ data$deathRatio)$p.value < 0.05) {
+        cat("Death ratio influences", name, "\n")
+    } else {
+        cat("Death ratio does not influence", name, "\n")
+    }
+}
 
 tests(data$killRatio, "kill ratio")
 tests(data$deathRatio, "death ratio")
+tests2(data$win, "win rate")
+tests2(data$blue_team, "being in blue team")
+tests2(data$tier, "tier")
