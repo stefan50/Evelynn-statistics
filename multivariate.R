@@ -48,15 +48,22 @@ if(correl_index >= 0.9 && correl_index <= 1.0) {
 }
 
 test <- lm(data$killRatio ~ data$deathRatio)
+test2 <- lm(data$deathRatio ~ data$killRatio)
 
 # Source : https://stackoverflow.com/questions/5587676/pull-out-p-values-and-r-squared-from-a-linear-regression
-fStatLinearReg <- summary(test)$fstatistic
-fDist <- pf(fStatLinearReg[1],fStatLinearReg[2],fStatLinearReg[3],lower.tail=F)
-attributes(fDist) <- NULL
 
-if(fDist > 0.05) {
-    print("All parameters are statistically irrelevant")
+areParametersRelevant <- function(regr) {
+    fStatLinearReg <- summary(regr)$fstatistic
+    fDist <- pf(fStatLinearReg[1],fStatLinearReg[2],fStatLinearReg[3],lower.tail=F)
+    attributes(fDist) <- NULL
+
+    if(fDist > 0.05) {
+        print("All parameters are statistically irrelevant")
+    }
 }
+
+areParametersRelevant(test)
+areParametersRelevant(test2)
 
 tests <- function(vector, name) {
     if(wilcox.test(vector ~ data$win)$p.value < 0.05) {
